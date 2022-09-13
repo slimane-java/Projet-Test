@@ -1,6 +1,7 @@
 package com.example.miniProjet;
 
 import com.example.miniProjet.Entity.ClientEntity;
+import com.example.miniProjet.classValidation.ValidatePrice;
 import com.example.miniProjet.dao.ClientRepository;
 import com.example.miniProjet.enums.RolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class MiniProjetApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MiniProjetApplication.class, args);
+	}
+
+	@Bean
+	public ValidatePrice validatePrice(){
+		return  new ValidatePrice();
 	}
 
 	@Bean

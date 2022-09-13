@@ -5,6 +5,8 @@ import com.example.miniProjet.Entity.ClientEntity;
 import com.example.miniProjet.dto.ClientFullNameDto;
 import com.example.miniProjet.dto.ClientGetDto;
 import com.example.miniProjet.dto.ClientPostDto;
+import com.example.miniProjet.exception.AlreadyExists;
+import com.example.miniProjet.exception.ResourceNotFoundException;
 import com.example.miniProjet.mapper.ClientMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -31,21 +33,26 @@ public class ClientServiceImp implements ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     
     @Override
     public ClientGetDto add(ClientPostDto clientPostDto) {
-        ClientEntity client = clientMapper.clientPostDtoToClientEntity(clientPostDto);
-        client.setPassword(passwordEncoder.encode(clientPostDto.getPasswordClient()));
-        return clientMapper.clientEntityToClientGetDto(clientRepository.save(client));
+        Optional<ClientEntity> client = clientRepository.findByUsername(clientPostDto.getEmailClient());
+
+        if(client.isPresent()) {
+            throw  new AlreadyExists("this Client is already Exists");
+        } else {
+            ClientEntity clientAdd = clientMapper.clientPostDtoToClientEntity(clientPostDto);
+            clientAdd.setPassword(passwordEncoder.encode(clientPostDto.getPasswordClient()));
+            return clientMapper.clientEntityToClientGetDto(clientRepository.save(clientAdd));
+        }
+
     }
 
     @Override
     public ClientGetDto getById(Long id) {
-
-        return clientMapper.clientEntityToClientGetDto(clientRepository.findById(id).orElse(null));
+        return clientMapper.clientEntityToClientGetDto(clientRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Client not Found")));
     }
 
     @Override
