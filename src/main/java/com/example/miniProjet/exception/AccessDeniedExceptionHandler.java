@@ -1,6 +1,7 @@
 package com.example.miniProjet.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 
 public class AccessDeniedExceptionHandler implements AccessDeniedHandler {
     private ObjectMapper object = new ObjectMapper();
+    private Gson gson = new Gson();
 
 
     @Override
@@ -23,10 +25,13 @@ public class AccessDeniedExceptionHandler implements AccessDeniedHandler {
         error.setStatusCode(status.value());
         error.setMessage("you need the access");
         error.setTimesTamp(new Date());
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
         response.getOutputStream()
                 .println(
-                        object.writeValueAsString(error)
+                        //object.writeValueAsString(error)
+                        gson.toJson(error)
                 );
     }
 }

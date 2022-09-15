@@ -26,7 +26,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = InvocationTargetException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage invocationTargetException(InvocationTargetException ex) {
-        return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), new Date(), ex.getMessage(), "Failed To Invoke Method or Constructor");
+        return new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(), ex.getMessage(), "Failed To Invoke Method or Constructor");
     }
 
     @ExceptionHandler(value = AuthenticationException.class)

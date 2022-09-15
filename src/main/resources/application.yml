@@ -17,9 +17,21 @@ spring:
 
     hibernate:
       ddl-auto: update
+  application:
+    name: project-test
 
 server:
-  port: 8078
+  port: 8081
   servlet:
     context-path: /api
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/dashboard
+  instance:
+    hostname: localhost
+    #instance-id: ${spring.application.name}:${random.int}
 

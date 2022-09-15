@@ -4,6 +4,7 @@ import com.example.miniProjet.enums.ExceptionEnum;
 import com.example.miniProjet.exception.AuthorisedExceptionHandler;
 import com.example.miniProjet.exception.ErrorMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -19,6 +20,7 @@ import java.util.Date;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private ObjectMapper object = new ObjectMapper();
+    private Gson gson = new Gson();
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
@@ -32,7 +34,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getOutputStream().println(object.writeValueAsString(error));
+        response.getOutputStream().println(gson.toJson(error));
 
         //throw new AuthorisedExceptionHandler("you need to sing in");
     }
