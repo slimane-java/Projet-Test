@@ -19,7 +19,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    private ObjectMapper object = new ObjectMapper();
     private Gson gson = new Gson();
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {

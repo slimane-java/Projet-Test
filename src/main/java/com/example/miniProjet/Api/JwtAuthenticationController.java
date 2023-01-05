@@ -2,14 +2,13 @@ package com.example.miniProjet.Api;
 
 import com.example.miniProjet.Entity.ClientEntity;
 import com.example.miniProjet.Service.ClientService;
+import com.example.miniProjet.dto.ClientGetDto;
 import com.example.miniProjet.dto.ClientPostDto;
-import com.example.miniProjet.enums.RolesEnum;
+import com.example.miniProjet.mapper.ClientMapper;
 import com.example.miniProjet.security.JwtTokenUtil;
 import com.example.miniProjet.security.JwtUserDetailsService;
 import com.example.miniProjet.validateInterface.OnCreateClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +17,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +37,12 @@ public class JwtAuthenticationController {
 
     private final ClientService clientService;
 
+    private final ClientMapper clientMapper;
+
+    @GetMapping(value = "getAllClientTest")
+    public ResponseEntity<List<ClientGetDto>> getAllClientTest(){
+        return ResponseEntity.ok(clientService.getAll());
+    }
     @PostMapping(value = "/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
