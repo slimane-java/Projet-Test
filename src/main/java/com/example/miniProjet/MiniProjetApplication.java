@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@Configuration
 @EnableEurekaClient
 @ComponentScan({"com"})
 public class MiniProjetApplication {
@@ -29,6 +33,10 @@ public class MiniProjetApplication {
 	@Bean
 	public ValidatePrice validatePrice(){
 		return  new ValidatePrice();
+	}
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+		return configuration.getAuthenticationManager();
 	}
 
 	@Bean

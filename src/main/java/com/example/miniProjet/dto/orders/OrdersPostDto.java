@@ -6,8 +6,8 @@ import com.example.miniProjet.dto.ProductDto.ProductGetDto;
 import com.example.miniProjet.validateInterface.OnCreateOrder;
 import lombok.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 

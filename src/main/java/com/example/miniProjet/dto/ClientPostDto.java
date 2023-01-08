@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -18,7 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @PasswordValidator
-public class ClientPostDto {
+public class
+
+ClientPostDto {
 
     @Null(groups = OnCreateClient.class)
     @NotNull(groups = {OnUpdateClient.class, OnCreateOrder.class})

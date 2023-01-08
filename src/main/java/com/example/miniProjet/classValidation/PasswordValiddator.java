@@ -3,8 +3,8 @@ package com.example.miniProjet.classValidation;
 import com.example.miniProjet.customAnnotation.PasswordValidator;
 import com.example.miniProjet.dto.ClientPostDto;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class PasswordValiddator implements ConstraintValidator<PasswordValidator, ClientPostDto> {
 

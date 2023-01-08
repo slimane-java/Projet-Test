@@ -4,6 +4,7 @@ import com.example.miniProjet.mapper.ExceptionMessageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,9 +21,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final ExceptionMessageMapper exceptionMessageMapper;
 
-
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
 
         System.out.print("\nex.getBindingResult().getFieldErrors().isEmpty()\n" +ex.getBindingResult().getFieldErrors().isEmpty());
@@ -32,7 +32,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
             List<ExceptionMessageFieldDto> list = ex.getBindingResult().getFieldErrors().stream()
                     .map(exceptionMessageMapper::exceptionMessageFieldErrorToDto)
                     .collect(Collectors.toList());
-            ErrorResponceField responce = new ErrorResponceField(status.name(), status.value(), list);
+            ErrorResponceField responce = new ErrorResponceField(status.toString(), status.value(), list);
 
             return new ResponseEntity<>(responce, status);
         } else {
@@ -42,7 +42,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
                     .map(exceptionMessageMapper::exceptionMessageObjectToDto)
                     .collect(Collectors.toList());
 
-            ErrorResponceObjectError responce = new ErrorResponceObjectError(status.name(), status.value(), list);
+            ErrorResponceObjectError responce = new ErrorResponceObjectError(status.toString(), status.value(), list);
 
             return new ResponseEntity<>(responce, status);
         }

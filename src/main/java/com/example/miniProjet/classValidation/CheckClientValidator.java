@@ -7,8 +7,8 @@ import com.example.miniProjet.dto.ClientGetDto;
 import com.example.miniProjet.dto.orders.OrdersPostDto;
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 @RequiredArgsConstructor
 public class CheckClientValidator implements ConstraintValidator<CheckClient1, ClientGetDto> {

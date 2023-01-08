@@ -1,6 +1,6 @@
 package com.example.miniProjet.enums;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 
 public enum RolesEnum {
